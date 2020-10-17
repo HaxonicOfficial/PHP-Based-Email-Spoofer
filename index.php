@@ -1,6 +1,19 @@
 <?php
+define("PASSWORD","Some_Validation_Key");
+$validpw = false;
+if(!isset($_POST['password']) || $_POST['password'] == '')
+{
+	$mail = '<div style="color:red">You need a password to send mail.  Be sure to enter it.</div>';
+	$validpw = false;
+} elseif($_POST['password'] != PASSWORD)
+{
+	$mail = '<div style="color:red">Invalid password.</div>';
+	$validpw = false;
+} else {
+	$validpw = true;
+}
 
-if(isset($_POST['to']) && isset($_POST['from']) && isset($_POST['fromname']) && isset($_POST['replyto']) && isset($_POST['subject']) && isset($_POST['message']))
+if(isset($_POST['to']) && isset($_POST['from']) && isset($_POST['fromname']) && isset($_POST['replyto']) && isset($_POST['subject']) && isset($_POST['message']) && $validpw)
 {
 	$headers = 'From: '.$_POST['fromname'].' <'.$_POST['from'].'>' . "\r\n" .
 	    'Reply-To: '. $_POST['replyto'] . "\r\n";
@@ -19,8 +32,6 @@ if(isset($_POST['to']) && isset($_POST['from']) && isset($_POST['fromname']) && 
 		$mail = '<div style="color:red">Fill in all inputs</div>';
 	}
 }
-
-
 
 ?>
 <!DOCTYPE html>
